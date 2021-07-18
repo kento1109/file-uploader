@@ -28,6 +28,7 @@ function App() {
   const [stateFilename, setFilename] = useState<string>("");
   const [stateFileSelected, setFileSelected] = useState(false);
   const [stateItems, setItems] = useState<Item[]>([]);
+  const [stateSalary, setSalary] = useState<number>(0);
 
   const FileInputChengeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
@@ -51,10 +52,12 @@ function App() {
       formData.append("file", stateFile);
 
       axios
-        .post("https://boiling-peak-10631.herokuapp.com/upload", formData)
+        // .post("https://boiling-peak-10631.herokuapp.com/upload", formData)
+        .post("http://127.0.0.1:8000/upload", formData)
         .then((response) => {
           console.log("File Upload success");
           setItems(response.data.freq_items);
+          setSalary(response.data.estimated_salary);
         })
         .catch((error) => alert("File Upload Error"));
 
@@ -76,6 +79,9 @@ function App() {
         <PrimaryButton onClick={() => (UploadFile())} disabled={stateFile === undefined}>
           アップロード
         </PrimaryButton>
+      </Control>
+      <Control>
+        <h2>推定年収：{stateSalary} 万円</h2>
       </Control>
       <Control>
         <h3>キーワードの頻度分析</h3>
