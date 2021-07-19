@@ -52,8 +52,8 @@ function App() {
       formData.append("file", stateFile);
 
       axios
-        // .post("https://boiling-peak-10631.herokuapp.com/upload", formData)
-        .post("http://127.0.0.1:8000/upload", formData)
+        .post("https://extract-text-backend.herokuapp.com/upload", formData)
+        // .post("http://127.0.0.1:8000/upload", formData)
         .then((response) => {
           console.log("File Upload success");
           setItems(response.data.freq_items);
